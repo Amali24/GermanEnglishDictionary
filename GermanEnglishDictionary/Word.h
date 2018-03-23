@@ -1,5 +1,5 @@
-#ifndef WORD_H
-#define Word_H
+#ifndef WORD
+#define WORD
 
 #include <string>
 
@@ -12,16 +12,32 @@ struct Word {
 	string sortWord;
 
 	Word();
-	Word(string, string, string, string);
+	Word(string, string, string);
+	
+	friend ostream& operator<<(ostream&, const Word&);
+	friend istream& operator>>(istream&, Word&);
+
+	static Word wordFactory(string);
+
 };
+
+#endif // !Word
+
+#ifndef NOUN
+#define NOUN
+
+
 
 struct Noun : Word {
 	string definiteArticle;
 
-	Noun(string, string, string, string, string);
+	Noun();
+	Noun(string, string, string);
+
+	friend ostream& operator<<(ostream&, const Noun&);
+	friend istream& operator>>(istream&, Noun&);
+
+	static Noun nounFactory();
 };
 
-
-
-#endif // !Word
-
+#endif // !Noun
