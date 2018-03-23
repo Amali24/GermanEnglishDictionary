@@ -17,7 +17,7 @@ int main() {
 
 	vector<Word> wordList;
 	ifstream inFile;
-	ofstream outFile("GtoE_dict.txt");
+	ofstream outFile;
 
 	bool wordListCreated = false;
 
@@ -33,8 +33,9 @@ int main() {
 	while (true) {
 		switch (menuChoice) {
 		case 1:
-			inFile.open("GtoE_dict.txt");
+			inFile.open(FILE_NAME);
 			if (!inFile) {
+				outFile.open(FILE_NAME);
 				wordList = wordListBuilder();
 				writeWordListToFile(outFile, wordList);
 				wordListCreated = true;
@@ -101,5 +102,8 @@ int main() {
 			system("pause");
 			return 1;
 		}
+		system("cls");
+		showMenu();
+		menuChoice = getMenuChoice(1, 9);
 	}
 }

@@ -4,7 +4,6 @@
 #include <conio.h>
 #include <fstream>
 #include <sstream>
-
 using namespace std;
 
 void showMenu() {
@@ -27,7 +26,6 @@ int getMenuChoice(int lo, int hi) {
 		cout << "Please select a valid menu option" << endl;
 		input = _getch() - '0';
 	}
-	cout << input;
 	return input;
 }
 
@@ -133,7 +131,7 @@ vector<Word> wordListBuilder(){
 			<< "6 - Adjective" << endl
 			<< "7 - Finished Entering Words" << endl;
 
-		int menuChoice = getMenuChoice(1, 6);
+		int menuChoice = getMenuChoice(1, 7);
 
 		switch (menuChoice) {
 		case 1:
@@ -156,6 +154,7 @@ vector<Word> wordListBuilder(){
 			break;
 		case 7:
 			return wordList;
+			break;
 		}
 	}
 
@@ -185,21 +184,39 @@ void readWordListFromFile(ifstream& in, vector<Word> wordList) {
 }
 
 void findWordsByPartOfSpeech(string partOfSpeech, vector<Word> wordList) {
-	vector<Word> subset;
-	for (Word word : wordList) {
-		if (word.partOfSpeech == partOfSpeech) {
-			subset.push_back(word);
+	
+
+	
+	
+	if (partOfSpeech != "Noun") {
+		vector<Word> subset;
+		for (Word word : wordList) {
+			if (word.partOfSpeech == partOfSpeech) {
+				subset.push_back(word);
+			}
+		}
+		sortWords(subset);
+		system("cls");
+		for (Word w : subset) {
+			cout << w << endl;
 		}
 	}
-	sortWords(subset);
-	for (Word w : subset) {
-		cout << w;
+
+	else {
+		vector<Noun> subset;
+		for (unsigned int i = 0; i < (wordList.size() - 1); i++) {
+			
+		}
+		for (Noun w : subset) {
+			cout << w << endl;
+		}
 	}
+	_getch();
 }
 
 void sortWords(vector<Word>& unsortedWords) {
 	for (unsigned int i = 0; i < unsortedWords.size() - 1; i++) {
-		if (unsortedWords[i].german > unsortedWords[i+1].german) {
+		if (unsortedWords[i].sortWord > unsortedWords[i+1].sortWord) {
 			Word temp = unsortedWords[i];
 			unsortedWords[i] = unsortedWords[i + 1];
 			unsortedWords[i + 1] = temp;
@@ -213,6 +230,7 @@ void searchForWord(string searchTerm, vector<Word> wordList) {
 			cout << w;
 		}
 	}
+	_getch();
 }
 
 string stringToUpper(string str) {

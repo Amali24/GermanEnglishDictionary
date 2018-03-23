@@ -14,7 +14,7 @@ Word::Word(string german, string english, string partOfSpeech) {
 }
 
 ostream& operator<<(ostream& os, const Word& w){
-	os << w.german << " " << w.english << " " << w.partOfSpeech;
+	os << w.german << " " << w.partOfSpeech << " " << w.english << " " ;
 	return os;
 }
 
@@ -29,9 +29,8 @@ Word Word::wordFactory(string partOfSpeech) {
 	cout << "Enter German Word: ";
 	word.german = wordBuilder();
 
-	cout << "Enter English Meaning: ";
-	cin >> word.english;
-	cin.ignore(80, '\n');
+	cout << "\nEnter English Meaning: ";
+	getline(cin, word.english);
 
 	word.partOfSpeech = partOfSpeech;
 	word.sortWord = makeSortWord(word.german);
@@ -40,7 +39,7 @@ Word Word::wordFactory(string partOfSpeech) {
 }
 
 Noun::Noun() {
-	Word();
+	partOfSpeech = "Noun";
 }
 
 Noun::Noun(string german, string english, string definiteArticle) {
@@ -61,7 +60,7 @@ Noun Noun::nounFactory(){
 	cout << "Enter German Word: ";
 	noun.german = wordBuilder();
 
-	cout << "Enter English Meaning: ";
+	cout << "\nEnter English Meaning: ";
 	cin >> noun.english;
 	cin.ignore(80, '\n');
 
@@ -71,7 +70,7 @@ Noun Noun::nounFactory(){
 }
 
 ostream& operator<<(ostream& os, const Noun& w) {
-	os << w.german << " " << w.english << " " << w.partOfSpeech << w.definiteArticle;
+	os << w.german << " " << w.partOfSpeech  << " " << w.english << " "  << w.definiteArticle;
 	return os;
 }
 
