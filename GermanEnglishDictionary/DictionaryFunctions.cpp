@@ -4,6 +4,7 @@
 #include <conio.h>
 #include <fstream>
 #include <sstream>
+#include <memory>
 using namespace std;
 
 void showMenu() {
@@ -117,8 +118,8 @@ string makeSortWord(string unsorted) {
 	return sortWord;
 }
 
-vector<Word> wordListBuilder(){
-	vector<Word> wordList;
+vector<unique_ptr<Word>> wordListBuilder(){
+	vector<unique_ptr<Word>> wordList;
 
 	while (true) {
 
@@ -135,22 +136,22 @@ vector<Word> wordListBuilder(){
 
 		switch (menuChoice) {
 		case 1:
-			wordList.push_back(Noun::nounFactory());
+			wordList.emplace_back(Noun::nounFactory());
 			break;
 		case 2:
-			wordList.push_back(Word::wordFactory("Verb"));
+			wordList.emplace_back(Word::wordFactory("Verb"));
 			break;
 		case 3:
-			wordList.push_back(Word::wordFactory("Preposition"));
+			wordList.emplace_back(Word::wordFactory("Preposition"));
 			break;
 		case 4:
-			wordList.push_back(Word::wordFactory("Cardinal Number"));
+			wordList.emplace_back(Word::wordFactory("Cardinal Number"));
 			break;
 		case 5:
-			wordList.push_back(Word::wordFactory("Adverb"));
+			wordList.emplace_back(Word::wordFactory("Adverb"));
 			break;
 		case 6:
-			wordList.push_back(Word::wordFactory("Adjective"));
+			wordList.emplace_back(Word::wordFactory("Adjective"));
 			break;
 		case 7:
 			return wordList;
@@ -160,66 +161,50 @@ vector<Word> wordListBuilder(){
 
 }
 
-void writeWordListToFile(ofstream& out, vector<Word> wordList) {
-	for (Word word : wordList) {
-		out << word << endl;
+void writeWordListToFile(ofstream& out, vector<unique_ptr<Word>> wordList) {
+	for (unsigned int i = 0; (i < wordList.size() - 1); i++) {
+		out << *wordList[i] << endl;
 	}
 }
 
-void readWordListFromFile(ifstream& in, vector<Word> wordList) {
+void readWordListFromFile(ifstream& in, vector<unique_ptr<Word>> wordList) {
 	string line;
 	while (getline(in, line)) {
 		stringstream iss(line);
 		if (line.find("Noun") != string::npos) {
 			Noun noun;
 			iss >> noun;
-			wordList.push_back(noun);
+			wordList.emplace_back(noun);
 		}
 		else {
 			Word word;
 			iss >> word;
-			wordList.push_back(word);
+			wordList.emplace_back(word);
 		}
 	}
 }
 
-void findWordsByPartOfSpeech(string partOfSpeech, vector<Word> wordList) {
-	
-
-	
-	
+void findWordsByPartOfSpeech(string partOfSpeech, vector<unique_ptr<Word>> wordList) {
 	if (partOfSpeech != "Noun") {
-		vector<Word> subset;
-		for (Word word : wordList) {
-			if (word.partOfSpeech == partOfSpeech) {
-				subset.push_back(word);
+		vector<unique_ptr<Word>> subset;
+		for (unsigned int i = 0; i < wordList.size() - 1; i++) {
+			if (wordList[i]->partOfSpeech == partOfSpeech) {
+				subset.emplace_back(wordList[i]);
 			}
 		}
 		sortWords(subset);
 		system("cls");
-		for (Word w : subset) {
-			cout << w << endl;
+		for (unsigned int i = 0; i < subset.size() - 1; i++) {
+			cout << *subset[i] << endl;
 		}
+		_getch();
 	}
-
-	else {
-		vector<Noun> subset;
-		for (unsigned int i = 0; i < (wordList.size() - 1); i++) {
-			
-		}
-		for (Noun w : subset) {
-			cout << w << endl;
-		}
-	}
-	_getch();
 }
 
-void sortWords(vector<Word>& unsortedWords) {
+void sortWords(vector<unique_ptr<Word>> unsortedWords) {
 	for (unsigned int i = 0; i < unsortedWords.size() - 1; i++) {
-		if (unsortedWords[i].sortWord > unsortedWords[i+1].sortWord) {
-			Word temp = unsortedWords[i];
-			unsortedWords[i] = unsortedWords[i + 1];
-			unsortedWords[i + 1] = temp;
+		if (unsortedWords[i]->sortWord > unsortedWords[i+1]->sortWord) {
+			swap(unsortedWords[i], unsortedWords[i + 1]);
 		}
 	 }
 }
