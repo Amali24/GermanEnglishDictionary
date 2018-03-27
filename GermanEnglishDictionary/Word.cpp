@@ -14,7 +14,7 @@ Word::Word(string german, string english, string partOfSpeech) {
 }
 
 ostream& operator<<(ostream& os, const Word& w){
-	os << w.german << " " << w.partOfSpeech << " " << w.english << " " ;
+	os << w.german << " " << w.english << " " << w.partOfSpeech << " ";
 	return os;
 }
 
@@ -70,7 +70,7 @@ Noun Noun::nounFactory(){
 }
 
 ostream& operator<<(ostream& os, const Noun& w) {
-	os << w.german << " " << w.partOfSpeech  << " " << w.english << " "  << w.definiteArticle;
+	os << w.german << " "  << w.english << " " << w.partOfSpeech << " " << w.definiteArticle;
 	return os;
 }
 

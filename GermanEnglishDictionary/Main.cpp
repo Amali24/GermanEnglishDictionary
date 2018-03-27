@@ -23,18 +23,17 @@ int main() {
 
 	inFile.open(FILE_NAME);
 
-	string searchTerm;
-
 	if (inFile) {
 		wordListCreated = true;
 		readWordListFromFile(inFile, wordList);
 	}
 
+	string searchTerm;
+
 	while (true) {
 		switch (menuChoice) {
 		case 1:
-			inFile.open(FILE_NAME);
-			if (!inFile) {
+			if (!wordListCreated) {
 				outFile.open(FILE_NAME);
 				wordList = wordListBuilder();
 				writeWordListToFile(outFile, wordList);
@@ -42,11 +41,13 @@ int main() {
 			}
 			else {
 				cout << "Word list already created." << endl;
+				_getch();
 			}
 			break;
 		case 2:
 			if (!wordListCreated) {
 				cout << "Word list must be created first." << endl;
+				_getch();
 				break;
 			}
 			findWordsByPartOfSpeech("Noun", wordList);
@@ -54,6 +55,7 @@ int main() {
 		case 3:
 			if (!wordListCreated) {
 				cout << "Word list must be created first." << endl;
+				_getch();
 				break;
 			}
 			findWordsByPartOfSpeech("Verb", wordList);
@@ -61,6 +63,7 @@ int main() {
 		case 4:
 			if (!wordListCreated) {
 				cout << "Word list must be created first." << endl;
+				_getch();
 				break;
 			}
 			findWordsByPartOfSpeech("Preposition", wordList);
@@ -68,13 +71,15 @@ int main() {
 		case 5:
 			if (!wordListCreated) {
 				cout << "Word list must be created first." << endl;
+				_getch();
 				break;
 			}
-			findWordsByPartOfSpeech("Cardinal Number", wordList);
+			findWordsByPartOfSpeech("Adjective", wordList);
 			break;
 		case 6:
 			if (!wordListCreated) {
 				cout << "Word list must be created first." << endl;
+				_getch();
 				break;
 			}
 			findWordsByPartOfSpeech("Adverb", wordList);
@@ -82,13 +87,15 @@ int main() {
 		case 7:
 			if (!wordListCreated) {
 				cout << "Word list must be created first." << endl;
+				_getch();
 				break;
 			}
-			findWordsByPartOfSpeech("Adjective", wordList);
+			findWordsByPartOfSpeech("Cardinal Number", wordList);
 			break;
 		case 8:
 			if (!wordListCreated) {
 				cout << "Word list must be created first." << endl;
+				_getch();
 				break;
 			}
 			cout << "Enter a word: ";
