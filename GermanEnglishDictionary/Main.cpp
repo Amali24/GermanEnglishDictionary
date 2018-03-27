@@ -3,7 +3,6 @@
 #include <conio.h>
 #include <vector>
 #include <fstream>
-#include <memory>
 
 using namespace std;
 
@@ -16,7 +15,7 @@ int main() {
 	
 	int menuChoice = getMenuChoice(1, 9);
 
-	vector<unique_ptr<Word>> wordList;
+	vector<Word> wordList;
 	ifstream inFile;
 	ofstream outFile;
 
