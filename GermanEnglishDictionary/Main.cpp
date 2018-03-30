@@ -16,6 +16,7 @@ int main() {
 	int menuChoice = getMenuChoice(1, 9);
 
 	vector<Word> wordList;
+	vector<Noun> nounList;
 	ifstream inFile;
 	ofstream outFile;
 
@@ -25,7 +26,7 @@ int main() {
 
 	if (inFile) {
 		wordListCreated = true;
-		readWordListFromFile(inFile, wordList);
+		readWordListFromFile(inFile, wordList, nounList);
 	}
 
 	string searchTerm;
@@ -35,8 +36,8 @@ int main() {
 		case 1:
 			if (!wordListCreated) {
 				outFile.open(FILE_NAME);
-				wordList = wordListBuilder();
-				writeWordListToFile(outFile, wordList);
+				wordListBuilder(wordList, nounList);
+				writeWordListToFile(outFile, wordList, nounList);
 				wordListCreated = true;
 			}
 			else {
@@ -50,7 +51,7 @@ int main() {
 				_getch();
 				break;
 			}
-			findWordsByPartOfSpeech("Noun", wordList);
+			findNouns(nounList);
 			break;
 		case 3:
 			if (!wordListCreated) {
@@ -100,7 +101,7 @@ int main() {
 			}
 			cout << "Enter a word: ";
 			searchTerm = wordBuilder();
-			searchForWord(searchTerm, wordList);
+			searchForWord(searchTerm, wordList, nounList);
 			break;
 		case 9:
 			return 0;

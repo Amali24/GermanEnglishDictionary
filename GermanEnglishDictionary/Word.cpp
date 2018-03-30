@@ -1,6 +1,7 @@
 #include "Word.h"
 #include "DictionaryFunctions.h"
 #include <iostream>
+#include <iomanip>
 
 Word::Word() {
 
@@ -14,7 +15,7 @@ Word::Word(string german, string english, string partOfSpeech) {
 }
 
 ostream& operator<<(ostream& os, const Word& w){
-	os << w.german << " " << w.english << " " << w.partOfSpeech << " ";
+	os << setw(20) << w.german << setw(20) << w.english << setw(20) << w.partOfSpeech;
 	return os;
 }
 
@@ -70,11 +71,11 @@ Noun Noun::nounFactory(){
 }
 
 ostream& operator<<(ostream& os, const Noun& w) {
-	os << w.german << " "  << w.english << " " << w.partOfSpeech << " " << w.definiteArticle;
+	os << setw(20) << w.definiteArticle << setw(20) << w.german << setw(20) << w.english << setw(20) << w.partOfSpeech;
 	return os;
 }
 
 istream& operator>>(istream& is, Noun& w) {
-	is >> w.german >> w.english >> w.partOfSpeech >> w.definiteArticle;
+	is >> w.definiteArticle >> w.german >> w.english >> w.partOfSpeech;
 	return is;
 }

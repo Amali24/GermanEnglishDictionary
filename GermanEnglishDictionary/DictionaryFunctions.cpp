@@ -4,6 +4,7 @@
 #include <conio.h>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 using namespace std;
 
 void showMenu() {
@@ -117,8 +118,7 @@ string makeSortWord(string unsorted) {
 	return sortWord;
 }
 
-vector<Word> wordListBuilder(){
-	vector<Word> wordList;
+void wordListBuilder(vector<Word> &wordList, vector<Noun> &nounList){
 
 	while (true) {
 
@@ -133,9 +133,12 @@ vector<Word> wordListBuilder(){
 
 		int menuChoice = getMenuChoice(1, 7);
 
+		Noun noun;
 		switch (menuChoice) {
 		case 1:
-			wordList.push_back(Noun::nounFactory());
+			noun = Noun::nounFactory();
+			wordList.push_back(noun);
+			nounList.push_back(noun);
 			break;
 		case 2:
 			wordList.push_back(Word::wordFactory("Verb"));
@@ -153,71 +156,76 @@ vector<Word> wordListBuilder(){
 			wordList.push_back(Word::wordFactory("Adjective"));
 			break;
 		case 7:
-			return wordList;
-			break;
+			return;
 		}
 	}
 
 }
 
-void writeWordListToFile(ofstream& out, vector<Word> wordList) {
+void writeWordListToFile(ofstream& out, vector<Word> wordList, vector<Noun> nounList) {
 	for (Word word : wordList) {
 		out << word << endl;
 	}
+	for (Noun noun : nounList) {
+		out << noun << endl;
+	}
 }
 
-void readWordListFromFile(ifstream& in, vector<Word> &wordList) {
+void readWordListFromFile(ifstream& in, vector<Word> &wordList, vector<Noun> &nounList) {
 	string line;
 	while (getline(in, line)) {
 		stringstream iss(line);
-/*		if (line.find("Noun") != string::npos) {
+		if (line.find("Noun") != string::npos) {
 			Noun noun;
 			iss >> noun;
-			wordList.push_back(noun);
+			nounList.push_back(noun);
 		}
-		else {*/
+		else {
 			Word word;
 			iss >> word;
 			word.sortWord = makeSortWord(word.german);
 			wordList.push_back(word);
-		//}
+		}
 	}
 }
 
 void findWordsByPartOfSpeech(string partOfSpeech, vector<Word> wordList) {
-	
-	//if (partOfSpeech != "Noun") {
-		vector<Word> subset;
-		for (Word word : wordList) {
-			if (word.partOfSpeech == partOfSpeech) {
-				subset.push_back(word);
-			}
+	vector<Word> words;
+
+	for (Word word : wordList) {
+		if (word.partOfSpeech == partOfSpeech) {
+			words.push_back(word);
 		}
+	}
 	
-		system("cls");
-		//cout << endl;
-		if (subset.size() == 0){
-			cout << "No " << partOfSpeech << "s found.";
-			_getch();
-			return;
-		}
+	system("cls");
+	
+	if (words.size() == 0){
+		cout << "No " << partOfSpeech << "s found.";
+		_getch();
+		return;
+	}
 		
-		sortWords(subset);
+	sortWords(words);
 
-		for (Word w : subset) {
-			cout << w << endl;
-		}
-	//}
+	cout << setw(20) << "German" << setw(20) << "English" << setw(20) << "Part of Speech" << endl;
 
-	/*else {
-		vector<Noun> subset;
-		for (unsigned int i = 0; i < (wordList.size() - 1); i++) {
-			
-		}
-		for (Noun w : subset) {
-			cout << w << endl;
-		}
-	}*/
+	for (Word w : words) {
+		cout << w << endl;
+	}
+	_getch();
+}
+
+
+void findNouns(vector<Noun> nounList) {
+	sortWords(nounList);
+
+	system("cls");
+	cout << setw(20) << "Definite Article" << setw(20) << "German" << setw(20) << "English" << setw(20) << "Part of Speech" << endl;
+
+	for (Noun n : nounList) {
+		cout << n << endl;
+	}
 	_getch();
 }
 
@@ -234,9 +242,31 @@ void sortWords(vector<Word>& unsortedWords) {
 	 }
 }
 
-void searchForWord(string searchTerm, vector<Word> wordList) {
+void sortWords(vector<Noun>& unsortedWords) {
+	unsigned i, j;
+	for (i = 0; i < unsortedWords.size() - 1; i++) {
+		for (j = 0; j < unsortedWords.size() - i - 1; j++) {
+			if (unsortedWords[j].sortWord > unsortedWords[j + 1].sortWord) {
+				Noun temp = unsortedWords[j];
+				unsortedWords[j] = unsortedWords[j + 1];
+				unsortedWords[j + 1] = temp;
+			}
+		}
+	}
+}
+
+void searchForWord(string searchTerm, vector<Word> wordList, vector<Noun> nounList) {
 	system("cls");
+
+	cout << setw(20) << "Definite Article" << setw(20) << "German" << setw(20) << "English" << setw(20) << "Part of Speech" << endl;
+
 	for (Word w : wordList) {
+		if (stringToUpper(w.german) == stringToUpper(searchTerm) || stringToUpper(w.english) == stringToUpper(searchTerm)) {
+			cout << w;
+		}
+	}
+
+	for (Noun w : nounList) {
 		if (stringToUpper(w.german) == stringToUpper(searchTerm) || stringToUpper(w.english) == stringToUpper(searchTerm)) {
 			cout << w;
 		}

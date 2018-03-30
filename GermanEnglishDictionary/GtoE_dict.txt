@@ -1,3 +1,3 @@
-Mann man Noun 
-™l oil Noun 
-Frau Miss Noun 
+der Mann man Noun 
+das ™l oil Noun 
+die Frau Miss Noun 
