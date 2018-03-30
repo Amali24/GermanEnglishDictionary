@@ -7,13 +7,6 @@ Word::Word() {
 
 }
 
-Word::Word(string german, string english, string partOfSpeech) {
-	this->german = german;
-	this->english = english;
-	this->partOfSpeech = partOfSpeech;
-	this->sortWord = makeSortWord(german);
-}
-
 ostream& operator<<(ostream& os, const Word& w){
 	os << setw(20) << w.german << setw(20) << w.english << setw(20) << w.partOfSpeech;
 	return os;
@@ -41,14 +34,6 @@ Word Word::wordFactory(string partOfSpeech) {
 
 Noun::Noun() {
 	partOfSpeech = "Noun";
-}
-
-Noun::Noun(string german, string english, string definiteArticle) {
-	this->german = german;
-	this->english = english;
-	this->partOfSpeech = "Noun";
-	this->sortWord = makeSortWord(german);
-	this->definiteArticle = definiteArticle;
 }
 
 Noun Noun::nounFactory(){

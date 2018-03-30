@@ -1,3 +1,34 @@
-der Mann man Noun 
-das ôl oil Noun 
-die Frau Miss Noun 
+                Mann                 man                Noun
+                  ôl                 oil                Noun
+                Frau               woman                Noun
+            FrÑulein                Miss                Noun
+             MÑdchen                girl                Noun
+                Kind               child                Noun
+                Haus               house                Noun
+              Schule              school                Noun
+                 TÅr                door                Noun
+              kommen             to come                Verb
+               gehen               to go                Verb
+               sehen              to see                Verb
+              wollen             to want                Verb
+              wissen             to know                Verb
+              kînnen          to be able                Verb
+                 vor              before         Preposition
+                nach               after         Preposition
+                  zu                  to         Preposition
+                 bis               until         Preposition
+                ohne             without         Preposition
+                eins                 one     Cardinal Number
+                drei               three     Cardinal Number
+                zwei                 two     Cardinal Number
+                hoch                high              Adverb
+                 gut                good           Adjective
+                 der                Mann                 man                Noun
+                 das                  ôl                 oil                Noun
+                 die                Frau               woman                Noun
+                 das            FrÑulein                Miss                Noun
+                 das             MÑdchen                girl                Noun
+                 das                Kind               child                Noun
+                 das                Haus               house                Noun
+                 die              Schule              school                Noun
+                 die                 TÅr                door                Noun

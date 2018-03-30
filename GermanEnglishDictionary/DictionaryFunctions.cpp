@@ -261,14 +261,14 @@ void searchForWord(string searchTerm, vector<Word> wordList, vector<Noun> nounLi
 	cout << setw(20) << "Definite Article" << setw(20) << "German" << setw(20) << "English" << setw(20) << "Part of Speech" << endl;
 
 	for (Word w : wordList) {
-		if (stringToUpper(w.german) == stringToUpper(searchTerm) || stringToUpper(w.english) == stringToUpper(searchTerm)) {
-			cout << w;
+		if (stringToUpper(w.german).find(stringToUpper(searchTerm)) != string::npos || stringToUpper(w.english).find(stringToUpper(searchTerm)) != string::npos){
+			cout << setw(20) << " " << w << endl;
 		}
 	}
 
 	for (Noun w : nounList) {
-		if (stringToUpper(w.german) == stringToUpper(searchTerm) || stringToUpper(w.english) == stringToUpper(searchTerm)) {
-			cout << w;
+		if (stringToUpper(w.german).find(stringToUpper(searchTerm)) != string::npos || stringToUpper(w.english).find(stringToUpper(searchTerm)) != string::npos){
+			cout << w << endl;
 		}
 	}
 	_getch();
