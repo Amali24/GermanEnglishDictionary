@@ -32,6 +32,7 @@ int getMenuChoice(int lo, int hi) {
 
 string wordBuilder() {
 	string word;
+	cout << "F1 = ä, F2 = ë, F3 = ï, F4 = ö,  F5 = ü, F6 = Ä, F7 = Ö, F8 = Ü" << endl;
 	while (1) {
 		char char1, char2;
 
@@ -141,6 +142,7 @@ void wordListBuilder(vector<Word> &wordList, vector<Noun> &nounList){
 			nounList.push_back(noun);
 			break;
 		case 2:
+			cout << "Do not include \'to\' in the infinitive" << endl;
 			wordList.push_back(Word::wordFactory("Verb"));
 			break;
 		case 3:

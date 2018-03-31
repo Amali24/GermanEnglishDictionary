@@ -1,3 +1,9 @@
+/*
+Andrew Thomas
+Project 2 - German-English Dictionary
+Due 3/23
+*/
+
 #include "DictionaryFunctions.h"
 #include <iostream>
 #include <conio.h>
